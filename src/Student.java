@@ -55,5 +55,8 @@ class test1{
 
         Person1 p = new Student("Ming",19,"BJTU");
         p.talk();// 多态，父类对象通过子类实例化，调用的是子类的talk
+
+        Student s2 = (Student) p;//向下类型转换，需要强制，向上是自动转的
+        s2.talk();// 如果 p 是由 Person1 new 出来的，此处报错
     }
 }
