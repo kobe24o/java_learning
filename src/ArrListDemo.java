@@ -1,3 +1,5 @@
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.*;
 
 class ArrListDemo {
@@ -141,16 +143,82 @@ class ArrListDemo {
             System.out.println(it1.next());
         }
         // keySet
-        Collection col1 = tm.keySet();
+        Set col1 = tm.keySet();
         Iterator it2 = col1.iterator();
         while(it2.hasNext()){
             System.out.println(it2.next());
         }
         // entrySet, K V 对
-        Collection col2 = tm.entrySet();
+        Set col2 = tm.entrySet();
         Iterator it3 = col2.iterator();
         while(it3.hasNext()){
             System.out.println(it3.next());
+        }
+
+        // Properties : k v 都是字符串的 Hashtable
+        Properties capitals = new Properties();
+        capitals.put("中国", "北京");
+        capitals.put("日本", "东京");
+        // capitals.put("美国", "华盛顿");
+
+        Set states = capitals.keySet();
+        String country;
+        Iterator it4 = states.iterator();
+        while(it4.hasNext()){
+            country = (String) it4.next();
+            System.out.println(country + " : " + capitals.getProperty(country));
+        }
+        String str = capitals.getProperty("美国", "not found");
+        System.out.println(str);
+    }
+}
+
+class StackDemo{
+    static void showpush(Stack st, int a){
+        st.push(a);
+        System.out.println("入栈：" + a);
+        System.out.println(st);
+    }
+    static void showpop(Stack st){
+        Integer a = (Integer) st.pop();
+        System.out.println("出栈：" + a);
+        System.out.println(st);
+    }
+    public static void main(String [] args){
+        Stack st = new Stack();
+        System.out.println(st);
+        showpush(st,2);
+        showpush(st,4);
+        showpush(st,1);
+        showpop(st);
+        showpop(st);
+        showpop(st);
+        try{
+            showpop(st);//空了，异常
+        }
+        catch (EmptyStackException e){
+            System.out.println("异常：" + e);
+        }
+    }
+}
+
+class PropertiesFile{
+    public static void main(String [] args){
+        Properties settings = new Properties();
+        try{
+            settings.load(new FileInputStream("./count.txt"));
+        }
+        catch (Exception e){
+            settings.setProperty("count", new Integer(0).toString());//没有文件就从0开始计数
+        }
+        int c = Integer.parseInt(settings.getProperty("count"))+1;
+        System.out.println("这是第" + c + "次使用本程序！");
+        settings.put("count", new Integer(c).toString());
+        try{
+            settings.store(new FileOutputStream("./count.txt"), "存储中");
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
         }
     }
 }
