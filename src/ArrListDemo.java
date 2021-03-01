@@ -128,5 +128,29 @@ class ArrListDemo {
             System.out.print(me.getKey() + ":");
             System.out.println(me.getValue());
         }
+
+        // TreeMap
+        TreeMap tm = new TreeMap();
+        tm.put(18, "Michael");
+        tm.put(19, "Ming");
+        tm.put(0, "Java");
+        // values
+        Collection col = tm.values();
+        Iterator it1 = col.iterator();
+        while(it1.hasNext()){
+            System.out.println(it1.next());
+        }
+        // keySet
+        Collection col1 = tm.keySet();
+        Iterator it2 = col1.iterator();
+        while(it2.hasNext()){
+            System.out.println(it2.next());
+        }
+        // entrySet, K V 对
+        Collection col2 = tm.entrySet();
+        Iterator it3 = col2.iterator();
+        while(it3.hasNext()){
+            System.out.println(it3.next());
+        }
     }
 }
