@@ -72,6 +72,95 @@ object myCollection {
         println(s0) // Set(michael, ming, scala)
 
         // 最值 Set.min, Set.max
+        val num = Set(1,2,3,4,5,6,-1)
+        println(num.min, num.max) // (-1, 6)
 
+        // 交集 Set.&  or  Set.intersect
+        val num1 = Set(1,2,3,11,12)
+        println(num.&(num1)) // Set(1, 2, 3)
+        println(num.intersect(num1)) // Set(1, 2, 3)
+
+
+        // Map 默认不可变的 Map， 可变的要import scala.collection.mutable.Map
+        val colors = Map("red" -> "#FF0000", "azure" -> "#F0FFFF")
+        println(colors("red")) // #FF0000
+        println("all keys: " + colors.keys) // all keys: Set(red, azure)
+        println("all values: " + colors.values) // all values: MapLike(#FF0000, #F0FFFF)
+        println("isEmpty ? : " + colors.isEmpty) // isEmpty ? : false
+        val num3 = Map()
+        println(num3.isEmpty) // true
+
+        // 合并 ++运算 or Map.++()
+        val colors1 = Map("red" -> "#FF0000",
+                        "azure" -> "#F0FFFF",
+                        "peru" -> "#CD853F")
+        println(colors ++ colors1) // Map(red -> #FF0000, azure -> #F0FFFF, peru -> #CD853F)
+        println(colors.++(colors1)) // Map(red -> #FF0000, azure -> #F0FFFF, peru -> #CD853F)
+        // 如果有 key 一样，value不一样，以后者的为准，请自行测试
+
+        // 输出 keys, values
+        colors.keys.foreach{
+            i => print("key: " + i); println(" value: " + colors(i))
+        } // key: red value: #FF0000
+          // key: azure value: #F0FFFF
+
+        // 指定key是否存在
+        println(colors.contains("red")) // true
+        println(colors.contains("blue")) // false
+
+        // 元组
+        val t = (1, 3.14, "michael")
+        println(t._1) // 1， 下标从1开始 ._idx
+
+        t.productIterator.foreach{ // 遍历
+            i => println("value: " + i)
+        }
+
+        // 元组转字符串
+        println(t.toString()) // (1,3.14,michael)
+
+        // 交换元素
+        val t1 = (1,2)
+        println(t1.swap) // (2,1) 长度只能为 2
+
+        // Option 表示一个值是可选的
+        val myMap  = Map("k1" -> "v1")
+        val v1 : Option[String] = myMap.get("k1")
+        val v2 : Option[String] = myMap.get("k2")
+        println(v1) // Some(v1)
+        println(v2) // None
+
+        def show(x : Option[String]) = x match {
+            case Some(s) => s
+            case None => "?"
+        }
+        println(show(myMap.get("k1"))) // v1
+        println(show(myMap.get("k2"))) // ?
+
+        // getOrElse() 获取存在的元素或者使用默认值
+        val a : Option[Int] = Some(5)
+        val b : Option[Int] = None
+        println(a.getOrElse(0)) // 5
+        println(b.getOrElse(10)) // 不存在，取默认值10
+        println(a.isEmpty) // false
+        println(b.isEmpty) // true
+
+        // Iterator 访问集合的方法
+        // it.next() 返回下一个元素，并更新迭代器
+        // it.hasNext 是否还有元素
+        val it = Iterator("baidu", "alibaba", "tencent")
+        while(it.hasNext){
+            println(it.next())
+        }
+        val it1 = Iterator(1,2,3,-1)
+        val it2 = Iterator(1,2,3,-1)
+        val it3 = Iterator(1,2,3,-1)
+
+        println(it1.min) // -1
+        println(it2.max) // 3, 需要分开写，不能写 it1.max
+
+        println(it1.size) // 0， 迭代器走到头了，剩余长度0
+        println(it3.length) // 4
     }
 }
+
